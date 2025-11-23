@@ -121,7 +121,10 @@ section .infos{
     display: none;
 }
 .addModal{
-    display: flex
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: larger;
 }
 .gameOver{
     display: None;
