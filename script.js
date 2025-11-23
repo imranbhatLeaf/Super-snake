@@ -1,5 +1,4 @@
 let hiScore = Number(localStorage.getItem("highScore")) || 0;
-
 const board = document.querySelector(".board")
 const scoreCard = document.querySelector("#score")
 const startgame = document.querySelector(".start-btn").addEventListener('click', start)
@@ -27,8 +26,8 @@ let food = {
 }
 
 const snake = [
-    { X: 2, Y: 2 },
-    { X: 2, Y: 3 },
+    { X: 2, Y: 2,color :getRandomColor() },
+    { X: 2, Y: 3,color :getRandomColor() },
 ]
 
 let blocks = []
@@ -45,11 +44,14 @@ function render() {
     // Clear old snake & food
     for (let key in blocks) {
         blocks[key].classList.remove("snake", "food")
+        blocks[key].style.backgroundColor = ""
     }
 
     // Draw snake
     snake.forEach((segment) => {
-        blocks[`${segment.X}-${segment.Y}`].classList.add("snake")
+        const block = blocks[`${segment.X}-${segment.Y}`]
+        block.classList.add("snake")
+        block.style.backgroundColor = segment.color
     })
 
     // Draw food
@@ -143,6 +145,10 @@ function start() {
 
     }, 400)
 }
+function getRandomColor() {
+    return `hsl(${Math.floor(Math.random()*360)}, 90%, 50%)`
+}
+
 
 addEventListener('keydown', (event) => {
     if (event.key === "ArrowUp" && direction !== "down") direction = "up"
