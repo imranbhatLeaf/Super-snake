@@ -28,6 +28,7 @@ let food = {
 
 const snake = [
     { X: 2, Y: 2 },
+    { X: 2, Y: 3 },
 ]
 
 let blocks = []
@@ -68,7 +69,7 @@ function resetGame() {
 
     // Reset snake
     snake.length = 0
-    snake.push({ X: 2, Y: 2 })
+    snake.push({ X: 2, Y: 2 },{X:2,Y:3})
 
     // Reset score
     score = 0
@@ -106,6 +107,14 @@ function start() {
             restart()
             return
         }
+        
+        for(let collision = 2; collision < snake.length; collision++){
+            if(head.X === snake[collision].X && head.Y === snake[collision].Y ){
+                clearInterval(intervalId)
+                restart()
+            }
+        }
+
 
         // Eating food
         if (food.X === head.X && food.Y === head.Y) {
@@ -114,7 +123,6 @@ function start() {
                 X: Math.floor(Math.random() * rows),
                 Y: Math.floor(Math.random() * cols)
             }
-
             snake.unshift(head)
             score += 10
             scoreCard.innerHTML = `${score}`
@@ -133,7 +141,7 @@ function start() {
 
         render()
 
-    }, 700)
+    }, 400)
 }
 
 addEventListener('keydown', (event) => {
